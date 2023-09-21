@@ -32,10 +32,22 @@ conn.commit()  # Save the work
 for row in results:
     print(row)
 
+# Update the record
 name = input('Who do you want modify? ')
 catches = input('what is the new catches ?')
 
 conn.execute('UPDATE jugglingRecordHolder SET numberOfCatches = ? WHERE name = ?', (catches, name))
+
+conn.commit() # This will save the work
+
+results = conn.execute('SELECT * FROM jugglingRecordHolder')
+
+for row in results:
+    print(row)
+
+# Delete a record
+delete_record = input("Who's record do you want to delete? ")
+conn.execute('DELETE FROM jugglingRecordHolder WHERE name = ? ', (delete_record,))
 
 conn.commit()
 
@@ -43,6 +55,5 @@ results = conn.execute('SELECT * FROM jugglingRecordHolder')
 
 for row in results:
     print(row)
-
 
 conn.close()
